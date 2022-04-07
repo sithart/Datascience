@@ -1,3 +1,10 @@
+# Custom Ignore / files
+Untitled219.ipynb
+Untitled222.ipynb
+Untitled225.ipynb
+
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

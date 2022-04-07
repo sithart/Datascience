@@ -1,0 +1,115 @@
+import os
+import sys
+
+# User selection
+print("Please choose the options For Registration Enter - 1")
+print("Please choose the options For Login Enter - 2")
+print("Please choose the options For Forget password Enter - 3")
+
+def store_credentials():
+    while True:
+        print("--------Usename Must be a valid Email Address--------")
+        username = input("Enter the username : ")
+        print("--------Password Must be included atleast one Numerical, one Special Character, one Uppercase and one Lowecase----")
+        password = input("Enter the password : ")
+        print(f"You entered {username}, {password}")
+        spl_char_check = username[0].isalnum()
+        num_char_check = username[0].isnumeric()
+        # print(spl_char_check, num_char_check)
+        spl_char_pass  = password.isalnum()
+        # print(password.isupper())
+        # print(password.islower())
+        # print(password.isnumeric())
+        m = False
+        n = False
+        o = False
+        for pwd in password:
+            if pwd.isupper() == True:
+                m = True
+            elif pwd.islower() == True:
+                n = True
+            elif pwd.isnumeric() == True:
+                o = True
+            else:
+                pass
+
+        if spl_char_pass == False and m == True and n == True and o == True and "@" in username and "@." not in username and "." in username and spl_char_check == True and num_char_check == False:
+            print("password and usernames are correct.")
+            cred = open('credentials.txt', 'a')
+            data = username + ";" + password
+            cred.write('\n' + data)
+            cred.close()
+            break
+        else:
+            print("Please Enter the Valid Inputs also satisfy the constraints.")
+
+
+
+
+
+    # if spl_char_pass == False and m == True and n == True and o == True:
+    #     print("password has special character")
+    # else:
+    #     print("No special character")
+
+    # if "@" in username and "@." not in username and "." in username and spl_char_check == True and num_char_check == False:
+    #     print("pass")
+    # else:
+    #     print("fail")
+
+def login():
+    x = input("Enter User Name :")
+    with open("credentials.txt") as file:
+        flag = 0
+        for item in file:
+            if item != "\n":
+                print(item.strip('\n').split(';'))
+                u_name = item.strip('\n').split(';')
+                if x == u_name[0]:
+                    print(f"Your username and Password are : {u_name[0]}, {u_name[1]}")
+                    flag = 1
+                else:
+                    pass
+        if flag == 1:
+            print("***Username was not Registered, Please re-enter the Username for Registration***")
+            store_credentials()
+        else:
+            pass
+
+
+
+def forget_password():
+    y = input("Enter your Username :")
+    flag = 0
+    with open("credentials.txt") as file:
+        for item in file:
+            if item != "\n":
+                # print(item.strip('\n').split(';'))
+                u_name = item.strip('\n').split(';')
+                if y == u_name[0]:
+                    print(f"Your username and Password are : {u_name[0]}, {u_name[1]}")
+                    flag = 1
+                else:
+                    pass
+    if flag == 1:
+        pass
+    else:
+        print("** User name was not there, Please register here !")
+        store_credentials()
+
+try:
+    y = int(input("Enter your Option :"))
+    if y == 1 or y == 2 or y == 3:
+        print(f"You Entered the option {y}")
+        if y == 1:
+            store_credentials()
+        elif y == 2:
+            login()
+        else:
+            forget_password()
+
+    else:
+        print("Invalid Input, Accepted options are 1 or 2 or 3. Please rerun the program.")
+except Exception as e:
+    print(e)
+    print("Invalid Input. please enter options 1 or 2 or 3 only")
