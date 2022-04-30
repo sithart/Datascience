@@ -1,0 +1,61 @@
+class node:
+    def __init__(self,data=None):
+        self.dataval=data
+        self.nextval=None
+
+class linked_list:
+    def __init__(self):
+        self.headval=None
+
+    def print_linked(self):
+        tempval=self.headval
+        while tempval is not None:
+            print(tempval.dataval)
+            tempval=tempval.nextval  
+    def insert_middle(self,middle_node,new_data):
+        if middle_node is None:
+            print("------invalid node-------")
+            return
+        temp_node=node(new_data)
+        temp_node.nextval=middle_node.nextval 
+        middle_node.nextval=temp_node
+    def insert_beg(self,new_data):
+        temp_node=node(new_data)
+        temp_node.nextval=self.headval
+        self.headval=temp_node
+    def insert_end(self,new_data):
+        temp_node=node(new_data)
+        if self.headval is None:
+            self.headval=temp_node
+            return
+        tempval=self.headval
+        while(tempval.nextval):
+            tempval=tempval.nextval
+        tempval.nextval=temp_node
+    def remove_list(self,remove_data):
+        tempval=self.headval
+        if(tempval is not None):
+            if(tempval.dataval==remove_data):
+                self.headval=tempval.nextval
+                tempval=None
+                return
+        while(tempval is not None):
+            if tempval.dataval==remove_data:
+                break
+            preval=tempval
+            tempval=tempval.nextval
+        if(tempval==None):
+            print("-------no match-")
+            return
+        preval.nextval=tempval.nextval
+        tempval=None
+x1=linked_list()
+x1.headval=node("sri")
+x2=node("swetha")
+x3=node("parth")
+x4=node("raja")
+x5=node("ramesh")
+x1.headval.nextval=x2
+x2.nextval=x3
+x3.nextval=x4
+x4.nextval=x5
